@@ -27,8 +27,15 @@ namespace Kendo.Mvc.Examples.Controllers
 
         public ActionResult FilterMenuCustomization_Titles()
         {
+            // How can I bind the filterValue more elegantly?
+            // Can I use Kendo.Mvc.Infrastructure.FilterDescriptorFactory? How?
+            var filterValue = Request.QueryString["filter[filters][0][value]"];
             var db = new SampleEntities();
-            return Json(db.Employees.Select(e => e.Title).Distinct(), JsonRequestBehavior.AllowGet);
+            var employeeTitles = db.Employees
+                                   .Select(e => e.Title)
+                                   .Where(t => t.StartsWith(filterValue))
+                                   .Distinct();
+            return Json(employeeTitles, JsonRequestBehavior.AllowGet);
         } 
     }
 }

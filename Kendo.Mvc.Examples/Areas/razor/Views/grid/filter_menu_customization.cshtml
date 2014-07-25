@@ -16,8 +16,8 @@
         .Operators(operators => operators
             .ForString(str => str.Clear()
                 .StartsWith("Starts with")
-                .IsEqualTo("Is equal to")
-                .IsNotEqualTo("Is not equal to")
+                //.IsEqualTo("Is equal to")
+                //.IsNotEqualTo("Is not equal to")
             ))
         )   
     .DataSource(dataSource => dataSource
@@ -42,9 +42,14 @@
         element.kendoAutoComplete({
             dataSource: {
                 transport: {
-                    read: "@Url.Action("FilterMenuCustomization_Titles")"
-                }
-            }
+                    read: {
+                        url: "@Url.Action("FilterMenuCustomization_Titles")",
+                        // data: onAdditionalData(element)
+                    }
+                },
+                serverFiltering: true
+            },
+            
         });
     }
 </script>
