@@ -44,7 +44,14 @@
                 transport: {
                     read: {
                         url: "@Url.Action("FilterMenuCustomization_Titles")",
-                        // data: onAdditionalData(element)
+                        type: "POST",
+                        contentType: "application/json"
+                    },
+                    parameterMap: function (options) {
+                        if (options.filter && options.filter.filters.length) {
+                            return kendo.stringify(options.filter.filters[0]);
+                        }
+                        return options;
                     }
                 },
                 serverFiltering: true
