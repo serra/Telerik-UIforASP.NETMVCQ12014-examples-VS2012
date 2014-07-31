@@ -48,8 +48,8 @@
                         contentType: "application/json"
                     },
                     parameterMap: function (options) {
-                        if (options.filter && options.filter.filters.length) {
-                            return kendo.stringify(options.filter.filters[0]);
+                        if (options.filter && options.filter.filters) {
+                            return kendo.stringify(options.filter.filters);
                         }
                         return options;
                     }

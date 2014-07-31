@@ -25,9 +25,12 @@ namespace Kendo.Mvc.Examples.Controllers
             return Json(db.Employees.Select(e => e.City).Distinct(), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult FilterMenuCustomization_Titles(FilterDescriptor filter)
+        public ActionResult FilterMenuCustomization_Titles(FilterDescriptor[] filters)
         {
-            var filterValue = filter.Value.ToString();
+            if(filters == null || filters.Length < 1)
+                return Json(new string[] {}, JsonRequestBehavior.AllowGet);
+
+            var filterValue = filters[0].Value.ToString();
             var db = new SampleEntities();
             var employeeTitles = db.Employees
                                    .Select(e => e.Title)
